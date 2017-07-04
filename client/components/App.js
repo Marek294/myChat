@@ -1,6 +1,5 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
-import Greetings from './Greetings';
 
 class App extends React.Component {
     render() {
@@ -8,7 +7,7 @@ class App extends React.Component {
             <div className="background">
                 <div className="container full-height">
                     <NavigationBar />
-                    <Greetings />
+                    {this.props.children}
                 </div>
             </div>
         )

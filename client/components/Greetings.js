@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 class Greetings extends React.Component {
     render() {
@@ -8,8 +9,8 @@ class Greetings extends React.Component {
                     <h2>Welcome to <span className="appNameColor">myChat!</span></h2>
                     <h4>Sign up to chat with your friends.</h4>
                     <div className="buttons">
-                        <button className="btn btn-primary">Log In</button>
-                        <button className="btn btn-success">Sign Up</button>
+                        <Link className="btn btn-primary" to="/login">Log In</Link>
+                        <Link className="btn btn-success" to="/signup">Sign Up</Link>
                     </div>
                 </div>
             </div>
