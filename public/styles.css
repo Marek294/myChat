@@ -1,28 +1,23 @@
-.background {
-    position: fixed;
-    top: 0;
-    left: 0;
+body {
     /* IE10+ */
-    background-image: -ms-radial-gradient(center top, ellipse farthest-corner, #00ABF9 -10%, #00296B 80%);
+    background: -ms-radial-gradient(center top, ellipse farthest-corner, #00ABF9 -10%, #00296B 80%);
 
     /* Mozilla Firefox */
-    background-image: -moz-radial-gradient(center top, ellipse farthest-corner, #00ABF9 -10%, #00296B 90%);
+    background: -moz-radial-gradient(center top, ellipse farthest-corner, #00ABF9 -10%, #00296B 90%);
 
     /* Opera */
-    background-image: -o-radial-gradient(center top, ellipse farthest-corner, #00ABF9 -10%, #00296B 90%);
+    background: -o-radial-gradient(center top, ellipse farthest-corner, #00ABF9 -10%, #00296B 90%);
 
     /* Webkit (Safari/Chrome 10) */
-    background-image: -webkit-gradient(radial, center top, 0, center top, 359, color-stop(-30, #00ABF9), color-stop(90, #00296B));
+    background: -webkit-gradient(radial, center top, 0, center top, 359, color-stop(-30, #00ABF9), color-stop(90, #00296B));
 
     /* Webkit (Chrome 11+) */
-    background-image: -webkit-radial-gradient(center top, ellipse farthest-corner, #00ABF9 -10%, #00296B 90%);
+    background: -webkit-radial-gradient(center top, ellipse farthest-corner, #00ABF9 -10%, #00296B 90%);
 
     /* W3C Markup */
-    background-image: radial-gradient(ellipse farthest-corner at center top, #00ABF9 -10%, #00296B 90%);
+    background: radial-gradient(ellipse farthest-corner at center top, #00ABF9 -10%, #00296B 90%);
 
-    width: 100%;
-    height: 100%;
-
+    height: 100vh;
 }
 
 .navbar {
@@ -86,10 +81,91 @@
     justify-content: space-around;
 }
 
-button {
-    width: 100px;
+.buttons .btn {
+    width: 180px;
 }
 
 .signupContainer {
+    background-color: white;
+    border-radius: 20px;
+    padding: 50px 200px 50px;
+}
 
+form {
+    margin-top: 50px;
+}
+
+form button {
+    transition: color 1s, background-color 1s;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    height: 30px;
+    width: 100px;
+    font-weight: 700;
+}
+
+.borderTransition {
+    border-bottom: 3px solid #00ABF9;
+    width: 0px;
+    transition: width 0.7s;
+}
+
+.borderTransition:hover {
+    width: 100px;
+}
+
+.flashHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.close {
+    align-self: center;
+}
+
+.mainUserContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.friendsChatContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.userGreetings {
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.username {
+    margin-left: 10px;
+}
+
+.friendsContainer {
+    width: 28%;
+}
+
+.chatContainer {
+    width: 70%;
+    min-height: 400px;
+}
+
+.panel-info .panel-heading {
+    background-color: #00ABF9;
+    border-color: #00ABF9;
+    color: white;
+}
+
+.panel-info {
+    border-color: #00ABF9;
+    border-radius: 5px;
+    height: 100%;
 }
