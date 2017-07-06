@@ -1,10 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import socket from '../socket';
 
 import UserGreetings from './user/UserGreetings';
 import FriendPanel from './user/FriendPanel';
 import ChatPanel from './user/ChatPanel';
 
+require("!style-loader!css-loader!sass-loader!../sass/loader.scss");
+
 class User extends React.Component {
+    componentWillMount() {
+        socket.emit('USER_ONLINE', this.props.user);
+    }
+
     render() {
         return (
             <div className="mainUserContainer">
@@ -24,4 +32,10 @@ class User extends React.Component {
     }
 }
 
-export default User;
+function mapStateToProps (state) {
+    return {
+        user: state.auth.user
+    }
+}
+
+export default connect(mapStateToProps, null)(User);

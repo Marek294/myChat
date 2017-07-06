@@ -1,0 +1,11 @@
+$primary-color: #00ABF9;
+@import '../../node_modules/loaders.css/src/animations/ball-pulse.scss';
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: flex;
+  align-self: center;
+  margin-bottom: 100px;
+}

@@ -21,6 +21,9 @@ router.post('/', (req, res) => {
                     username: user.get('username')
                 }, config.jwtSecret);
 
+                user.set('is_online', true);
+                user.save();
+
                 res.json({ token: token });
 
             } else res.status(403).json({ errors: { form: 'Invalid authentication' } });

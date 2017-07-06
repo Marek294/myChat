@@ -19,9 +19,10 @@ export function login(token) {
 }
 
 export function logout() {
+    return dispatch => {
+        axios.put('/api/users/offline');
         localStorage.removeItem('jwtToken');
         setAuthorizationToken();
-    return dispatch => {
         dispatch(setCurrentUser());
     }
 }

@@ -22,6 +22,9 @@ router.post('/', (req, res) => {
                     username: user.get('username')
                 }, config.jwtSecret);
 
+                user.set('is_online', true);
+                user.save();
+
                 res.json({ token: token });
             })
             .catch(err => {
@@ -31,15 +34,27 @@ router.post('/', (req, res) => {
     } else res.status(403).json({ success: false, errors: errors });
 });
 
-router.delete('/:id', (req, res) => {
+router.put('/offline', authenticate, (req, res) => {
     User.query({
-        where: { id: req.params.id }
+        where: { id: req.currentUser.id }
     }).fetch().then(user => {
         if(user) {
-            user.destroy();
-            res.json(user);
-        } else res.status(404).json({ errors: 'There is no user with such id'});
+            user.set('is_online', false);
+            user.save();
+            res.json({success: true});
+        } else res.status(403).json({ errors: 'There is no user with such id'});
     })
 });
+
+// router.delete('/:id', authenticate, (req, res) => {
+//     User.query({
+//         where: { id: req.params.id }
+//     }).fetch().then(user => {
+//         if(user) {
+//             user.destroy();
+//             res.json(user);
+//         } else res.status(404).json({ errors: 'There is no user with such id'});
+//     })
+// });
 
 export default router;

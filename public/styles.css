@@ -169,3 +169,10 @@ form button {
     border-radius: 5px;
     height: 100%;
 }
+
+.parent {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
