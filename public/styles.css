@@ -91,20 +91,6 @@ body {
     padding: 50px 200px 50px;
 }
 
-form {
-    margin-top: 50px;
-}
-
-form button {
-    transition: color 1s, background-color 1s;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    height: 30px;
-    width: 100px;
-    font-weight: 700;
-}
-
 .borderTransition {
     border-bottom: 3px solid #00ABF9;
     width: 0px;

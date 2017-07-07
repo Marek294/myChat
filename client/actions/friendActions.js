@@ -140,3 +140,22 @@ export function acceptPendingFriend(friendId) {
         })
     }
 }
+
+export function inviteFriend(friendEmail) {
+    return dispatch => {
+        dispatch(startFetch());
+        return axios.post('/api/friends/',friendEmail).then(res => {
+            dispatch(addFlashMessage({
+                type: 'success',
+                text: 'Friend request was send'
+            }));
+            dispatch(stopFetch());
+        }, err => {
+            dispatch(addFlashMessage({
+                type: 'error',
+                text: err.response.data.errors
+            }));
+            dispatch(stopFetch());
+        })
+    }
+}

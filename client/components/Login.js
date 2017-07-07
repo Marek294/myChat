@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { userLoginRequest } from '../actions/userActions';
 
+require("!style-loader!css-loader!sass-loader!../sass/forms.scss");
+
 class Login extends React.Component {
     constructor(props) {
         super(props);

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { userSignupRequest, login } from '../actions/userActions';
 import { addFlashMessage } from '../actions/flashActions';
 
+require("!style-loader!css-loader!sass-loader!../sass/forms.scss");
+
 class Signup extends React.Component {
     constructor(props) {
         super(props);

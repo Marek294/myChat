@@ -47,33 +47,37 @@ router.get('/accepted', authenticate, (req, res) => {
 });
 
 router.post('/', authenticate, (req, res) => {
-    const { friendId } = req.body;
+    const { friendEmail } = req.body;
 
-    if(req.currentUser.id != friendId)
-    {
-        let p1 = User.query({ where: { id: friendId } }).fetch();
-        let p2 = Friend.query({ where: {    user_id1: req.currentUser.id,
-                                            user_id2: friendId },
-                                orWhere: {  user_id1: friendId,
-                                            user_id2: req.currentUser.id }}).fetch();
-
-        Promise.all([p1, p2]).then(values => {
-            if(!values[1]) {
-                if(values[0]) {
-                    Friend.forge({
-                        user_id1: req.currentUser.id,
-                        user_id2: friendId,
-                        status: 'pending' },{ hasTimestamps: true }).save()
-                        .then(friendRecord => {
-                            res.json(friendRecord);
-                        })
-                        .catch(err => {
-                            res.status(500).json({ success: false, errors: err });
-                        })
-                } else res.status(403).json({errors: 'There is no user with such id'})
-            } else res.status(403).json({ errors: 'Friend request was already sended or accepted'})
-        })
-    } else res.status(403).json({errors: 'You cannot send friend request to yourself'})
+    User.query({ where: { email: friendEmail } }).fetch().then(user => {
+        if(user) {
+                if(req.currentUser.id != user.get('id')) {
+                    Friend.query({
+                        where: {
+                            user_id1: req.currentUser.id,
+                            user_id2: user.get('id')
+                        },
+                        orWhere: {
+                            user_id1: user.get('id'),
+                            user_id2: req.currentUser.id
+                        }
+                    }).fetch().then(friend => {
+                        if (!friend) {
+                            Friend.forge({
+                                user_id1: req.currentUser.id,
+                                user_id2: user.get('id'),
+                                status: 'pending' },{ hasTimestamps: true }).save()
+                                .then(friendRecord => {
+                                    res.json(friendRecord);
+                                })
+                                .catch(err => {
+                                    res.status(500).json({ success: false, errors: err });
+                                })
+                        } else res.status(403).json({errors: 'Friend request was already sended or accepted'})
+                    });
+                } else res.status(403).json({errors: 'You cannot send friend request to yourself'})
+        } else res.status(403).json({errors: 'There is no user with such email'})
+    });
 });
 
 router.put('/accept', authenticate, (req, res) => {
