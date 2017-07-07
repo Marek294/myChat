@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import socket from '../socket';
 
 import { logout } from '../actions/userActions';
 import { addFlashMessage } from '../actions/flashActions';
@@ -13,6 +14,7 @@ class NavigationBar extends React.Component {
     }
 
     logout() {
+        socket.emit('USER_OFFLINE', this.props.user);
         this.props.logout();
         this.props.addFlashMessage({
             type: 'success',
@@ -56,7 +58,8 @@ class NavigationBar extends React.Component {
 
 function mapStateToProps (state) {
     return {
-        isAuthenticated: state.auth.isAuthenticated
+        isAuthenticated: state.auth.isAuthenticated,
+        user: state.auth.user,
     }
 }
 

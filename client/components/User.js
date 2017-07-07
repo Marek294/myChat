@@ -9,8 +9,24 @@ import ChatPanel from './user/ChatPanel';
 require("!style-loader!css-loader!sass-loader!../sass/loader.scss");
 
 class User extends React.Component {
-    componentWillMount() {
+    // componentWillMount() {
+    //     socket.emit('USER_ONLINE', this.props.user);
+    //
+    //     socket.on('SOCKET_ID', id => {
+    //         let user = this.props.user;
+    //         user.socketId = id;
+    //         socket.emit('USER_INFORMATION', user);
+    //     })
+    // }
+
+    componentDidMount() {
         socket.emit('USER_ONLINE', this.props.user);
+
+        socket.on('SOCKET_ID', id => {
+            let user = this.props.user;
+            user.socketId = id;
+            socket.emit('USER_INFORMATION', user);
+        })
     }
 
     render() {

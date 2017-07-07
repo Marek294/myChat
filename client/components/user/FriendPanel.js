@@ -21,7 +21,11 @@ class FriendPanel extends React.Component {
     componentWillMount() {
         this.props.getFriends();
         socket.on('SERVER_USER_ONLINE', user => {
-            this.props.changeFriendStatus(user);
+            this.props.changeFriendStatus(user, true);
+        });
+
+        socket.on('SERVER_USER_OFFLINE', user => {
+            this.props.changeFriendStatus(user, false);
         });
     }
 
@@ -75,7 +79,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
     return {
         getFriends: () => {dispatch(getFriends())},
-        changeFriendStatus: (user) => {dispatch(changeFriendStatus(user))},
+        changeFriendStatus: (user, isOnline) => {dispatch(changeFriendStatus(user, isOnline))},
     }
 }
 

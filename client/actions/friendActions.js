@@ -20,10 +20,11 @@ export function setFriends(friends) {
     }
 }
 
-export function changeFriendStatus(user) {
+export function changeFriendStatus(user, isOnline) {
     return {
         type: CHANGE_FRIEND_STATUS,
-        user
+        user,
+        isOnline
     }
 }
 

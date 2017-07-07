@@ -150,11 +150,11 @@ form button {
 }
 
 .friendsContainer {
-    width: 28%;
+    width: 18%;
 }
 
 .chatContainer {
-    width: 70%;
+    width: 80%;
     min-height: 400px;
 }
 
