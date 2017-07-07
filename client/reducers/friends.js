@@ -1,6 +1,6 @@
 import findIndex from 'lodash/findIndex';
 
-import { SET_FRIENDS, CHANGE_FRIEND_STATUS } from '../actions/types';
+import { SET_FRIENDS, CHANGE_FRIEND_STATUS, DELETE_FRIEND, ADD_FRIEND } from '../actions/types';
 
 export default ( state = [], action = {}) => {
     switch(action.type) {
@@ -17,6 +17,19 @@ export default ( state = [], action = {}) => {
                 ...state.slice(index+1)
             ];
         }
+        case DELETE_FRIEND: {
+            const index = findIndex(state, { id: action.friend.id });
+
+            return [
+                ...state.slice(0,index),
+                ...state.slice(index+1)
+            ]
+        }
+        case ADD_FRIEND:
+            return [
+                ...state,
+                action.friend
+            ];
         default: return state;
     }
 }

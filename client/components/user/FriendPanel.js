@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Loader } from 'react-loaders'
+import { Loader } from 'react-loaders';
 import classnames from 'classnames';
 import socket from '../../socket';
 
@@ -29,32 +29,34 @@ class FriendPanel extends React.Component {
         });
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({
-    //         friends: nextProps.friends
-    //     });
-    // }
-
     startChat(friendId) {
         console.log(friendId);
     }
 
     render() {
-        let friends = this.props.friends.map((friend,index) => {
-            let style;
-            let styleText;
-            if(friend.is_online ) {
-                style = 'green';
-                styleText = 'green-text';
-            } else {
-                style = 'grey';
-                styleText = 'grey-text';
-            }
+        let friends;
 
-            return (
-                <button key={index} onClick={() => this.startChat(friend.id)}><li className="list-group-item" ><div className={classnames("circle", style)} /><span className={styleText}>{friend.username}</span></li></button>
-            )
-        });
+        if(!this.props.friends[0]) {
+            friends = (<div className="text-center noFriends"><p>You have no friends yet.</p><p>Go to Friends panel and invite someone :)</p></div>);
+        }
+        else {
+            friends = this.props.friends.map((friend,index) => {
+                let style;
+                let styleText;
+                if(friend.is_online ) {
+                    style = 'green';
+                    styleText = 'green-text';
+                } else {
+                    style = 'grey';
+                    styleText = 'grey-text';
+                }
+
+                return (
+                    <button key={index} onClick={() => this.startChat(friend.id)}><li className="list-group-item" ><div className={classnames("circle", style)} /><span className={styleText}>{friend.username}</span></li></button>
+                )
+            });
+        }
+
         return (
             <div className="panel panel-info">
                 <div className="panel-heading">
@@ -78,8 +80,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        getFriends: () => {dispatch(getFriends())},
-        changeFriendStatus: (user, isOnline) => {dispatch(changeFriendStatus(user, isOnline))},
+        getFriends: () => dispatch(getFriends()),
+        changeFriendStatus: (user, isOnline) => dispatch(changeFriendStatus(user, isOnline)),
     }
 }
 

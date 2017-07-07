@@ -1,0 +1,16 @@
+li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete {
+  color: red;
+  font-size: 25px;
+}
+
+.noFriends {
+  margin-top: 30px;
+  color: grey;
+  font-weight: 700;
+  font-size: 11px;
+}

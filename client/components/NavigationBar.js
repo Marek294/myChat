@@ -37,7 +37,7 @@ class NavigationBar extends React.Component {
             brand = (<Link className="navbar-brand" to="/user">myChat</Link>);
             links = (
                 <ul className="nav navbar-nav navbar-right">
-                    <li><Link href="#" >Friends</Link></li>
+                    <li><Link href="#" to="/friends">Friends</Link></li>
                     <li><a href="#" onClick={this.logout}>Log out</a></li>
                 </ul>
             );

@@ -9,16 +9,13 @@ let router = express.Router();
 
 router.get('/pending', authenticate, (req, res) => {
     Friend.query({
-        where: {    user_id1: req.currentUser.id,
-                    status: 'pending' },
-        orWhere: {  user_id2: req.currentUser.id,
+        where: {  user_id2: req.currentUser.id,
                     status: 'pending' }
     }).fetchAll().then(friends => {
         let userIdArray = [];
 
         friends.map(friend => {
-            if(friend.get('user_id1') == req.currentUser.id) userIdArray.push(friend.get('user_id2'));
-            else userIdArray.push(friend.get('user_id1'));
+            userIdArray.push(friend.get('user_id1'));
         });
 
         User.query("whereIn", "id", userIdArray).fetchAll({ columns: ['id','username']}).then(users => {
@@ -83,34 +80,48 @@ router.put('/accept', authenticate, (req, res) => {
     const { friendId } = req.body;
 
     Friend.query({
-        where: {    user_id1: req.currentUser.id,
-                    user_id2: friendId,
-                    status: 'pending'},
-        orWhere: {  user_id1: friendId,
-                    user_id2: req.currentUser.id,
-                    status: 'pending'}
+        where: {  user_id1: friendId,
+            user_id2: req.currentUser.id,
+            status: 'pending'}
     }).fetch().then(friend => {
         if(friend) {
             friend.set('status', 'accept');
             friend.save();
 
-            res.json(friend);
+            User.query({
+                where: {id: friendId}
+            }).fetch({columns: ['id', 'username', 'is_online']}).then(user => {
+                if (user) res.json(user);
+                else res.status(403).json({errors: 'There is no user with such id'});
+            });
         } else res.status(403).json({errors: 'There is no pending friend request'});
     })
 });
 
 router.delete('/:friendId', authenticate, (req, res) => {
-    Friend.query({
-        where: {    user_id1: req.currentUser.id,
-                    user_id2: req.params.friendId},
-        orWhere: {  user_id1: req.params.friendId,
-                    user_id2: req.currentUser.id}
-    }).fetch().then(friend => {
-        if(friend) {
-            friend.destroy();
-            res.json(friend);
-        } else res.status(403).json({errors: 'There is no friend with such id'});
-    })
+    if(req.params.friendId) {
+        Friend.query({
+            where: {
+                user_id1: req.currentUser.id,
+                user_id2: req.params.friendId
+            },
+            orWhere: {
+                user_id1: req.params.friendId,
+                user_id2: req.currentUser.id
+            }
+        }).fetch().then(friend => {
+            if (friend) {
+                friend.destroy();
+
+                User.query({
+                    where: {id: req.params.friendId}
+                }).fetch({columns: ['id', 'username']}).then(user => {
+                    if (user) res.json(user);
+                    else res.status(403).json({errors: 'There is no user with such id'});
+                });
+            } else res.status(403).json({errors: 'There is no friend with such id'});
+        })
+    } else res.status(403).json({ errors: 'There is no friendId in query'});
 });
 
 export default router;

@@ -6,6 +6,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import bodyParser from 'body-parser';
 import socket from 'socket.io';
 import http from 'http';
+import morgan from 'morgan';
 import findIndex from 'lodash/findIndex';
 
 import webpackConfig from '../webpack.config.dev';
@@ -30,6 +31,7 @@ app.use(webpackHotMiddleware(compiler));
 
 app.use(express.static('public'));
 app.use(bodyParser());
+app.use(morgan('dev'));
 
 app.use('/api/auth',auth);
 app.use('/api/users',users);
