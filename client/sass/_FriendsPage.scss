@@ -1,0 +1,21 @@
+.sass-FriendsPage {
+  .parentFriendsPageDiv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .parentFriendsManagementDiv {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .friendsRequestsDiv {
+    width: 40%;
+  }
+
+  .friendsListDiv {
+    width: 40%;
+  }
+}

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { userSignupRequest, login } from '../actions/userActions';
 import { addFlashMessage } from '../actions/flashActions';
 
-require("!style-loader!css-loader!sass-loader!../sass/forms.scss");
+require("!style-loader!css-loader!sass-loader!../sass/_Forms.scss");
 
 class Signup extends React.Component {
     constructor(props) {
@@ -58,41 +58,43 @@ class Signup extends React.Component {
 
     render() {
         return (
-            <div className="signupContainer">
-                <h2 className="text-center">Sign Up</h2>
-                <form className="form-horizontal" onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Username</label>
-                        <div className="col-sm-10">
-                            <input name="username" type="text" className="form-control" placeholder="Username" onChange={this.onChange}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Email</label>
-                        <div className="col-sm-10">
-                            <input name="email" type="email" className="form-control" placeholder="Email" onChange={this.onChange}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Password</label>
-                        <div className="col-sm-10">
-                            <input name="password" type="password" className="form-control" placeholder="Password" onChange={this.onChange}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-2 control-label">Confirm Password</label>
-                        <div className="col-sm-10">
-                            <input name="confirmPassword" type="password" className="form-control" placeholder="Confirm Password" onChange={this.onChange}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <div className="col-sm-offset-2 col-sm-10">
-                            <div className="borderTransition">
-                                <button type="submit">Sign in</button>
+            <div className="sass-Forms">
+                <div className="signupContainer">
+                    <h2 className="text-center">Sign Up</h2>
+                    <form className="form-horizontal" onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <label className="col-sm-2 control-label">Username</label>
+                            <div className="col-sm-10">
+                                <input name="username" type="text" className="form-control" placeholder="Username" onChange={this.onChange}/>
                             </div>
                         </div>
-                    </div>
-                </form>
+                        <div className="form-group">
+                            <label className="col-sm-2 control-label">Email</label>
+                            <div className="col-sm-10">
+                                <input name="email" type="email" className="form-control" placeholder="Email" onChange={this.onChange}/>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label className="col-sm-2 control-label">Password</label>
+                            <div className="col-sm-10">
+                                <input name="password" type="password" className="form-control" placeholder="Password" onChange={this.onChange}/>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label className="col-sm-2 control-label">Confirm Password</label>
+                            <div className="col-sm-10">
+                                <input name="confirmPassword" type="password" className="form-control" placeholder="Confirm Password" onChange={this.onChange}/>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <div className="col-sm-offset-2 col-sm-10">
+                                <div className="borderTransition">
+                                    <button type="submit">Sign in</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         );
     }

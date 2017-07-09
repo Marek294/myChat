@@ -1,0 +1,47 @@
+.sass-Greetings {
+  $break-small: 480px;
+  $break-large: 2000px;
+
+  @media screen and (max-width: $break-large) {
+    .greetMessage {
+      width: 50%;
+      border-radius: 10px;
+      background-color: white;
+      padding: 10px 50px 20px 50px;
+    }
+
+    .buttons .btn {
+      width: 180px;
+    }
+  }
+
+  @media screen and (max-width: $break-small) {
+    .greetMessage {
+      width: 100%;
+      border-radius: 10px;
+      background-color: white;
+      padding: 10px 50px 20px 50px;
+    }
+
+    .buttons .btn {
+      min-width: 10px;
+    }
+  }
+
+  .greetContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .appNameColor {
+    color: #00ABF9;
+  }
+
+  .buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}

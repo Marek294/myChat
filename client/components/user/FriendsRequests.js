@@ -4,7 +4,7 @@ import { Loader } from 'react-loaders';
 
 import { getPendingFriends, deletePendingFriend, acceptPendingFriend } from '../../actions/friendActions';
 
-require("!style-loader!css-loader!sass-loader!../../sass/friendRequest.scss");
+require("!style-loader!css-loader!sass-loader!../../sass/_FriendsRequests.scss");
 
 class FriendsRequests extends React.Component {
     constructor(props) {
@@ -46,6 +46,7 @@ class FriendsRequests extends React.Component {
         }
 
         return (
+            <div className="sass-FriendsRequests">
             <div className="panel panel-info">
                 <div className="panel-heading">
                     <div className="flashHeader">
@@ -54,6 +55,7 @@ class FriendsRequests extends React.Component {
                 </div>
                 {this.props.isFetching ? <div className="parent" ><Loader type="ball-pulse" active /></div> :
                     <div className="panel-body"><ul className="list-group">{pendings}</ul></div> }
+            </div>
             </div>
         )
     }

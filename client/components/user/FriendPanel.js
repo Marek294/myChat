@@ -7,7 +7,7 @@ import socket from '../../socket';
 import { getFriends, changeFriendStatus } from '../../actions/friendActions';
 
 require("!style-loader!css-loader!sass-loader!../../sass/loader.scss");
-require("!style-loader!css-loader!sass-loader!../../sass/friends.scss");
+require("!style-loader!css-loader!sass-loader!../../sass/_FriendPanel.scss");
 
 //{this.props.isFetching ? <div className="parent" ><Loader type="ball-pulse" active /></div> : friends }
 
@@ -58,6 +58,7 @@ class FriendPanel extends React.Component {
         }
 
         return (
+            <div className="sass-FriendsPanel">
             <div className="panel panel-info">
                 <div className="panel-heading">
                     <div className="flashHeader">
@@ -66,6 +67,7 @@ class FriendPanel extends React.Component {
                 </div>
                 {this.props.isFetching ? <div className="parent" ><Loader type="ball-pulse" active /></div> :
                     <div className="panel-body"><ul className="list-group">{friends}</ul></div> }
+            </div>
             </div>
         );
     }

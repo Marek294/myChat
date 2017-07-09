@@ -6,6 +6,8 @@ import socket from '../socket';
 import { logout } from '../actions/userActions';
 import { addFlashMessage } from '../actions/flashActions';
 
+require("!style-loader!css-loader!sass-loader!../sass/_NavigationBar.scss");
+
 class NavigationBar extends React.Component {
     constructor(props) {
         super(props);
@@ -44,6 +46,7 @@ class NavigationBar extends React.Component {
         }
 
         return (
+            <div className="sass-NavigationBar">
             <nav className="navbar navbar-default">
                 <div className="container-fluid">
                     <div className="navbar-header">
@@ -52,6 +55,7 @@ class NavigationBar extends React.Component {
                     {links}
                 </div>
             </nav>
+            </div>
         );
     }
 }

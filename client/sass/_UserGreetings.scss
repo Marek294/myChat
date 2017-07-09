@@ -1,0 +1,27 @@
+.sass-UserGreetings {
+  .greetMessage {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 10px;
+
+    padding: 10px 50px 20px 50px;
+  }
+
+  .appNameColor {
+    color: #00ABF9;
+  }
+
+  .username {
+    margin-left: 10px;
+  }
+
+  span {
+    font-size: 30px;
+    margin-top: 15px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+}

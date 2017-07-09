@@ -1,0 +1,31 @@
+.sass-User {
+  .mainUserContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .friendsChatContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .userGreetings {
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    justify-content: center;
+  }
+
+
+  .friendsContainer {
+    width: 18%;
+  }
+
+  .chatContainer {
+    width: 80%;
+    min-height: 400px;
+  }
+}

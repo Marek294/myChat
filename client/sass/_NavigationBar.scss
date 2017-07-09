@@ -1,0 +1,38 @@
+.sass-NavigationBar {
+  .navbar {
+    background-color: transparent;
+    border: none;
+    color: white;
+  }
+
+  .navbar-default .navbar-nav li a {
+    color: white;
+    font-size: 20px;
+    border: 3px solid transparent;
+    transition: color 1s, border 1s;
+  }
+
+  .navbar-default .navbar-nav li a:hover {
+    color: #00ABF9;
+  }
+
+  .navbar-default .navbar-nav li a:focus {
+    color: white;
+    border-bottom: 3px solid #00296B;
+  }
+
+  .navbar-default .navbar-brand {
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
+    transition: color 1s;
+  }
+
+  .navbar-default .navbar-brand:hover {
+    color: #00ABF9;
+  }
+
+  .navbar-default .navbar-brand:focus {
+    color: white;
+  }
+}

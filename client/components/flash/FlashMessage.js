@@ -4,6 +4,8 @@ import classnames from 'classnames';
 
 import { deleteFlashMessage } from '../../actions/flashActions';
 
+require("!style-loader!css-loader!sass-loader!../../sass/_FlashMessage.scss");
+
 class FlashMessage extends React.Component {
     constructor(props) {
         super(props);
@@ -25,7 +27,7 @@ class FlashMessage extends React.Component {
         else messageType = 'panel-warning';
 
         return (
-            <div>
+            <div className="sass-FlashMessage">
                 {text ? <div className={classnames('panel', messageType)}>
                         <div className="panel-heading">
                             <div className="flashHeader">

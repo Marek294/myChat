@@ -4,11 +4,12 @@ import FriendsRequests from './FriendsRequests';
 import FriendsList from './FriendsList';
 import FriendInvite from './FriendInvite';
 
-require("!style-loader!css-loader!sass-loader!../../sass/friendsPage.scss");
+require("!style-loader!css-loader!sass-loader!../../sass/_FriendsPage.scss");
 
 class FriendsPage extends React.Component {
     render() {
         return (
+            <div class="sass-FriendsPage">
             <div className="parentFriendsPageDiv">
                 <div className="friendInvitation">
                     <FriendInvite />
@@ -21,6 +22,7 @@ class FriendsPage extends React.Component {
                         <FriendsList />
                     </div>
                 </div>
+            </div>
             </div>
         );
     }

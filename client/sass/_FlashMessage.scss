@@ -1,0 +1,11 @@
+.sass-FlashMessage {
+  .flashHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .close {
+    align-self: center;
+  }
+}

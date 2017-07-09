@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+require("!style-loader!css-loader!sass-loader!../../sass/_UserGreetings.scss");
+
 class UserGreetings extends React.Component {
     render() {
         let username;
@@ -8,8 +10,10 @@ class UserGreetings extends React.Component {
             username = this.props.user.username;
         }
         return (
+            <div className="sass-UserGreetings">
             <div className="greetMessage text-center">
-                <h2>Welcome <span className="appNameColor username">{username}</span></h2>
+                <h2>Welcome</h2><span className="appNameColor username">{username}</span>
+            </div>
             </div>
         );
     }

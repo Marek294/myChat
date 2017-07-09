@@ -4,11 +4,12 @@ import UserGreetings from './UserGreetings';
 import FriendPanel from './FriendPanel';
 import ChatPanel from './ChatPanel';
 
-require("!style-loader!css-loader!sass-loader!../../sass/loader.scss");
+require("!style-loader!css-loader!sass-loader!../../sass/_User.scss");
 
 class User extends React.Component {
     render() {
         return (
+            <div className="sass-User">
             <div className="mainUserContainer">
                 <div className="userGreetings">
                     <UserGreetings />
@@ -21,6 +22,7 @@ class User extends React.Component {
                         <ChatPanel />
                     </div>
                 </div>
+            </div>
             </div>
         );
     }

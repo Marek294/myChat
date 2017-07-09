@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { userLoginRequest } from '../actions/userActions';
 
-require("!style-loader!css-loader!sass-loader!../sass/forms.scss");
+require("!style-loader!css-loader!sass-loader!../sass/_Forms.scss");
 
 class Login extends React.Component {
     constructor(props) {
@@ -39,6 +39,7 @@ class Login extends React.Component {
 
     render() {
         return (
+            <div className="sass-Forms">
             <div className="signupContainer">
                 <h2 className="text-center">Log In</h2>
                 {this.state.errors.form && <div className="alert alert-danger">{this.state.errors.form}</div> }
@@ -63,6 +64,7 @@ class Login extends React.Component {
                         </div>
                     </div>
                 </form>
+            </div>
             </div>
         );
     }

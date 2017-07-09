@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { inviteFriend } from '../../actions/friendActions';
 
-require("!style-loader!css-loader!sass-loader!../../sass/friendsInvite.scss");
+require("!style-loader!css-loader!sass-loader!../../sass/_FriendInvite.scss");
 
 class FriendInvite extends React.Component {
     constructor(props) {
@@ -30,19 +30,21 @@ class FriendInvite extends React.Component {
 
     render() {
         return (
-            <div className="panel panel-info">
-                <div className="panel-heading">
-                    <div className="flashHeader">
-                        <h3 className="panel-title">Invite a Friend</h3>
-                    </div>
-                </div>
-                <div className="panel-body">
-                    <form className="form-inline inviteForm" onSubmit={this.invite}>
-                        <div className="form-group">
-                            <input name="friendEmail" type="email" className="form-control" placeholder="Email Address" onChange={this.onChange} />
+            <div className="sass-FriendInvite">
+                <div className="panel panel-info">
+                    <div className="panel-heading">
+                        <div className="flashHeader">
+                            <h3 className="panel-title">Invite a Friend</h3>
                         </div>
-                        <button type="submit" className="inviteButton">Send Friend Request</button>
-                    </form>
+                    </div>
+                    <div className="panel-body">
+                        <form className="form-inline inviteForm" onSubmit={this.invite}>
+                            <div className="form-group">
+                                <input name="friendEmail" type="email" className="form-control" placeholder="Email Address" onChange={this.onChange} />
+                            </div>
+                            <button type="submit" className="inviteButton">Send Friend Request</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         );
