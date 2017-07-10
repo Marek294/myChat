@@ -8,14 +8,20 @@ export default ( state = [], action = {}) => {
             return action.friends;
         case CHANGE_FRIEND_STATUS: {
             const index = findIndex(state, { id: action.user.id });
-            let changeFriend = state[index];
-            changeFriend.is_online = action.isOnline;
+            if(index > -1 ) {
+                let changeFriend = state[index];
+                changeFriend.is_online = action.isOnline;
 
-            return [
-                ...state.slice(0,index),
-                changeFriend,
-                ...state.slice(index+1)
-            ];
+                return [
+                    ...state.slice(0,index),
+                    changeFriend,
+                    ...state.slice(index+1)
+                ];
+            } else {
+                return state;
+            }
+
+
         }
         case DELETE_FRIEND: {
             const index = findIndex(state, { id: action.friend.id });

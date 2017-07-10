@@ -1,4 +1,10 @@
 .sass-FriendsRequests {
+  .list-group-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .noPendings {
     margin-top: 30px;
     color: grey;

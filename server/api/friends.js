@@ -2,6 +2,8 @@ import express from 'express';
 
 import User from '../models/user';
 import Friend from '../models/friend';
+import Chat from '../models/chat';
+import Member from '../models/member';
 
 import authenticate from '../middlewares/authenticate';
 
@@ -95,7 +97,21 @@ router.put('/accept', authenticate, (req, res) => {
             User.query({
                 where: {id: friendId}
             }).fetch({columns: ['id', 'username', 'is_online']}).then(user => {
-                if (user) res.json(user);
+                if (user) {
+                    // const members = [req.currentUser.id, friendId];
+                    // Chat.forge({
+                    //     name: user.get('username')
+                    // },{ hasTimestamps: true }).save().then(chat => {
+                    //     for(var i = 0; i < 2; i++) {
+                    //         Member.forge({
+                    //             chat_id: chat.get('id'),
+                    //             user_id: members[i]
+                    //         }).save();
+                    //     }
+                    // });
+
+                    res.json(user);
+                }
                 else res.status(403).json({errors: 'There is no user with such id'});
             });
         } else res.status(403).json({errors: 'There is no pending friend request'});
@@ -115,6 +131,15 @@ router.delete('/:friendId', authenticate, (req, res) => {
             }
         }).fetch().then(friend => {
             if (friend) {
+                // const members = [req.currentUser.id, parseInt(req.params.friendId)];
+                // for(var i = 0; i < 2; i++){
+                //     Chat.query({
+                //     }).fetch().then(chat => {
+                //         res.json(chat);
+                //     });
+                // }
+
+
                 friend.destroy();
 
                 User.query({

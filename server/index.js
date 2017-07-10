@@ -72,12 +72,22 @@ io.on('connection', function(socket) {
                         user.save();
                     }
                 })
+            } else {
+                socket.broadcast.emit('SERVER_USER_ONLINE', user);
             }
         }
     });
 
     socket.on('USER_OFFLINE', function(user) {
         socket.broadcast.emit('SERVER_USER_OFFLINE', user);
+    });
+
+    socket.on('SEND_MESSAGE', (message, toWho) => {
+        //console.log(message, toWho);
+        const index = findIndex(usersOnline, { username: toWho.username });
+        if(index > - 1) {
+            io.to(usersOnline[index].socketId).emit('SERVER_SEND_MESSAGE', message);
+        }
     });
 
     socket.on('disconnect', function(reason) {
@@ -102,7 +112,7 @@ io.on('connection', function(socket) {
                     })
                 }
             }
-        },30*1000)
+        },5*1000)
     });
 });
 

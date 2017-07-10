@@ -7,12 +7,15 @@
   button {
     background-color: transparent;
     border: none;
+    width: 100%;
   }
 
   .list-group-item {
     border: none;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .circle {
@@ -44,5 +47,10 @@
     color: grey;
     font-weight: 700;
     font-size: 11px;
+  }
+
+  .username {
+    width: 70%;
+    text-align: left;
   }
 }
