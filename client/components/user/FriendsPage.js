@@ -9,7 +9,7 @@ require("!style-loader!css-loader!sass-loader!../../sass/_FriendsPage.scss");
 class FriendsPage extends React.Component {
     render() {
         return (
-            <div class="sass-FriendsPage">
+            <div className="sass-FriendsPage">
             <div className="parentFriendsPageDiv">
                 <div className="friendInvitation">
                     <FriendInvite />

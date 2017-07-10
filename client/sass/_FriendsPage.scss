@@ -1,21 +1,34 @@
 .sass-FriendsPage {
+  $break-small: 480px;
+  $break-large: 1000px;
+
+  @media screen and (max-width: $break-small) {
+    .parentFriendsManagementDiv {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  @media screen and (min-width: $break-large) {
+    .parentFriendsManagementDiv {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .friendsRequestsDiv {
+      width: 40%;
+    }
+
+    .friendsListDiv {
+      width: 40%;
+    }
+  }
+
   .parentFriendsPageDiv {
     display: flex;
     flex-direction: column;
-  }
-
-  .parentFriendsManagementDiv {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .friendsRequestsDiv {
-    width: 40%;
-  }
-
-  .friendsListDiv {
-    width: 40%;
   }
 }

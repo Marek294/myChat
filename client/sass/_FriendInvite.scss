@@ -4,12 +4,17 @@
   }
 
   .inviteButton {
+    margin-left: 20px;
     width: 200px;
-    background-color: #00ABF9;
-    color: white;
+    box-shadow: none;
+    border: 2px solid #00ABF9;
+    font-weight: 700;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #00ABF9;
   }
 
   .inviteForm .form-group .form-control {
-    width: 300px;
+    min-width: 250px;
   }
 }

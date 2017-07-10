@@ -47,37 +47,47 @@ server.listen(port, () => console.log('Running on port '+port));
 
 // Setup socket
 var io = socket(server, {
-    'pingInterval': 2000,
-    'pingTimeout': 5000,
+    'pingInterval': 10*1000,
+    'pingTimeout': 5*1000,
 });
 
-let socketsInformation = [];
+let usersOnline = [];
 
 io.on('connection', function(socket) {
     console.log('Connection was made ' + socket.id);
-    socket.on('USER_ONLINE', function(user) {
+    socket.on('USER_ONLINE', (user) => {
         //console.log(user);
-        socket.emit('SOCKET_ID', socket.id);
-        socket.on('USER_INFORMATION', user => {
-            socketsInformation.push(user);
-            //console.log(socketsInformation, '-----------------------END');
-        });
-
-        socket.broadcast.emit('SERVER_USER_ONLINE', user);
+        if(user) {
+            const index = findIndex(usersOnline, {username: user.username});
+            if (index == -1) {
+                let userInformation = user;
+                userInformation.socketId = socket.id;
+                usersOnline.push(userInformation);
+                socket.broadcast.emit('SERVER_USER_ONLINE', user);
+                User.query({
+                    where: { id: user.id }
+                }).fetch().then(user => {
+                    if(user) {
+                        user.set('is_online', true);
+                        user.save();
+                    }
+                })
+            }
+        }
     });
+
     socket.on('USER_OFFLINE', function(user) {
-        //console.log(user);
         socket.broadcast.emit('SERVER_USER_OFFLINE', user);
     });
 
     socket.on('disconnect', function(reason) {
         console.log('disconnect', socket.id);
-        const index = findIndex(socketsInformation, { socketId: socket.id });
+        const index = findIndex(usersOnline, { socketId: socket.id });
         let removedUser;
-        if(index > -1) removedUser = socketsInformation.splice(index,1);
+        if(index > -1) removedUser = usersOnline.splice(index,1);
         setTimeout(() => {
             if(removedUser) {
-                const index = findIndex(socketsInformation, { username: removedUser[0].username });
+                const index = findIndex(usersOnline, { username: removedUser[0].username });
                 if (index > -1) console.log('User reconnected');
                 else {
                     console.log('user has left');
@@ -92,7 +102,7 @@ io.on('connection', function(socket) {
                     })
                 }
             }
-        },5000)
+        },30*1000)
     });
 });
 

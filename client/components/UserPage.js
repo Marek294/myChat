@@ -4,12 +4,8 @@ import socket from '../socket';
 
 class UserPage extends React.Component {
     componentDidMount() {
-        socket.emit('USER_ONLINE', this.props.user);
-
-        socket.on('SOCKET_ID', id => {
-            let user = this.props.user;
-            user.socketId = id;
-            socket.emit('USER_INFORMATION', user);
+        socket.on('pong', () => {
+            socket.emit('USER_ONLINE', this.props.user);
         })
     }
 

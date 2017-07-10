@@ -2,13 +2,12 @@
   $break-small: 480px;
   $break-large: 1000px;
 
-  @media screen and (min-width: $break-small) {
+  @media screen and (max-width: $break-small) {
     form {
-      margin-top: 50px;
+      margin-top: 20px;
     }
 
     form button {
-      transition: color 1s, background-color 1s;
       background-color: transparent;
       border: none;
       box-shadow: none;
@@ -16,26 +15,6 @@
       width: 100px;
       font-weight: 700;
       color: black;
-    }
-
-    form .form-group .form-control {
-
-    }
-
-    .signupContainer {
-      background-color: white;
-      border-radius: 20px;
-      padding: 20px 50px;
-    }
-
-    .borderTransition {
-      border-bottom: 3px solid #00ABF9;
-      width: 0px;
-      transition: width 0.7s;
-    }
-
-    .borderTransition:hover {
-      width: 100px;
     }
   }
 
@@ -76,6 +55,10 @@
     }
   }
 
-
+  .signupContainer {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px 50px;
+  }
 
 }

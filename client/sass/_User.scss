@@ -1,14 +1,36 @@
 .sass-User {
+  $break-small: 480px;
+  $break-large: 1000px;
+
+  @media screen and (max-width: $break-small) {
+    .friendsChatContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  @media screen and (min-width: $break-large) {
+    .friendsChatContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .friendsContainer {
+      width: 18%;
+    }
+
+    .chatContainer {
+      width: 80%;
+      min-height: 400px;
+    }
+  }
+
   .mainUserContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-
-  .friendsChatContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
   }
 
   .userGreetings {
@@ -17,15 +39,5 @@
     border-radius: 5px;
     margin-bottom: 30px;
     justify-content: center;
-  }
-
-
-  .friendsContainer {
-    width: 18%;
-  }
-
-  .chatContainer {
-    width: 80%;
-    min-height: 400px;
   }
 }
