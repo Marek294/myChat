@@ -3,7 +3,6 @@ import express from 'express';
 import User from '../models/user';
 import Friend from '../models/friend';
 import Chat from '../models/chat';
-import Member from '../models/member';
 
 import authenticate from '../middlewares/authenticate';
 
@@ -98,17 +97,13 @@ router.put('/accept', authenticate, (req, res) => {
                 where: {id: friendId}
             }).fetch({columns: ['id', 'username', 'is_online']}).then(user => {
                 if (user) {
-                    // const members = [req.currentUser.id, friendId];
-                    // Chat.forge({
-                    //     name: user.get('username')
-                    // },{ hasTimestamps: true }).save().then(chat => {
-                    //     for(var i = 0; i < 2; i++) {
-                    //         Member.forge({
-                    //             chat_id: chat.get('id'),
-                    //             user_id: members[i]
-                    //         }).save();
-                    //     }
-                    // });
+                    const members = [req.currentUser.id, friendId];
+                    const name = user.get('username') + ',' + req.currentUser.get('username');
+                    Chat.forge({
+                        name: name,
+                        members: members
+                    },{ hasTimestamps: true }).save();
+
 
                     res.json(user);
                 }
@@ -131,14 +126,17 @@ router.delete('/:friendId', authenticate, (req, res) => {
             }
         }).fetch().then(friend => {
             if (friend) {
-                // const members = [req.currentUser.id, parseInt(req.params.friendId)];
-                // for(var i = 0; i < 2; i++){
-                //     Chat.query({
-                //     }).fetch().then(chat => {
-                //         res.json(chat);
-                //     });
-                // }
+                const members = [req.currentUser.id, parseInt(req.params.friendId)];
 
+                Chat.query(function(qb) {
+                    qb.where('members', '=' , members.reverse()).orWhere('members', '=' , members.reverse());  //REVERSE UPDATE VARIABLE
+                }).fetchAll().then(chats => {
+                    if(chats) {
+                        chats.map(chat => {
+                            chat.destroy();
+                        })
+                    }
+                });
 
                 friend.destroy();
 

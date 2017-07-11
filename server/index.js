@@ -14,6 +14,7 @@ import webpackConfig from '../webpack.config.dev';
 import users from './api/users';
 import auth from './api/auth';
 import friends from './api/friends';
+import chats from './api/chats';
 
 import User from './models/user';
 
@@ -36,6 +37,7 @@ app.use(morgan('dev'));
 app.use('/api/auth',auth);
 app.use('/api/users',users);
 app.use('/api/friends',friends);
+app.use('/api/chats',chats);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
