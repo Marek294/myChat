@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { addFlashMessage } from './flashActions';
-import { SET_FRIENDS, START_FETCHING, STOP_FETCHING, CHANGE_FRIEND_STATUS, DELETE_FRIEND, SET_PENDING_FRIENDS, DELETE_PENDING_FRIEND, ADD_FRIEND, ADD_FLASH_MESSAGE } from './types';
+import { SET_FRIENDS, START_FETCHING, STOP_FETCHING, CHANGE_FRIEND_STATUS, DELETE_FRIEND, SET_PENDING_FRIENDS, DELETE_PENDING_FRIEND, ADD_FRIEND } from './types';
 
 export function startFetch() {
     return {

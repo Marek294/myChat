@@ -128,8 +128,10 @@ router.delete('/:friendId', authenticate, (req, res) => {
             if (friend) {
                 const members = [req.currentUser.id, parseInt(req.params.friendId)];
 
+                const reverseMembers = [parseInt(req.params.friendId), req.currentUser.id];
+
                 Chat.query(function(qb) {
-                    qb.where('members', '=' , members.reverse()).orWhere('members', '=' , members.reverse());  //REVERSE UPDATE VARIABLE
+                    qb.where('members', '=' , members).orWhere('members', '=' , reverseMembers);
                 }).fetchAll().then(chats => {
                     if(chats) {
                         chats.map(chat => {

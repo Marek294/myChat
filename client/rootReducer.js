@@ -4,6 +4,8 @@ import auth from './reducers/auth';
 import fetch from './reducers/fetch';
 import friends from './reducers/friends';
 import pendings from './reducers/pendings';
+import messages from './reducers/messages';
+import chats from './reducers/chats';
 import chat from './reducers/chat';
 
 export default combineReducers({
@@ -12,5 +14,7 @@ export default combineReducers({
     fetch,
     friends,
     pendings,
+    messages,
+    chats,
     chat,
 });

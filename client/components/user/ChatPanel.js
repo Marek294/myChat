@@ -21,15 +21,15 @@ class ChatPanel extends React.Component {
         this.sendMessage = this.sendMessage.bind(this);
     }
 
-    componentDidMount() {
-        socket.on('SERVER_SEND_MESSAGE', (message) => {
-            if(this.props.chat.friend) {
-                if (this.props.chat.friend.id == message.userId) {
-                    this.props.saveMessage(message);
-                }
-            }
-        });
-    }
+    // componentDidMount() {
+    //     socket.on('SERVER_SEND_MESSAGE', (message) => {
+    //         if(this.props.chat.friend) {
+    //             if (this.props.chat.friend.id == message.userId) {
+    //                 this.props.saveMessage(message);
+    //             }
+    //         }
+    //     });
+    // }
 
     componentDidUpdate(){
         const scroll = findDOMNode(this.refs.scroll);
@@ -47,13 +47,12 @@ class ChatPanel extends React.Component {
 
         if(this.state.message) {
             let message = {
-                userId: this.props.user.id,
-                text: this.state.message
+                chat_id: this.props.chat.id,
+                content: this.state.message
             };
 
             this.props.saveMessage(message);
-
-            socket.emit('SEND_MESSAGE', message, this.props.chat.friend);
+            //socket.emit('SEND_MESSAGE', message);
 
             this.setState({
                 message: ''
@@ -62,19 +61,20 @@ class ChatPanel extends React.Component {
     }
 
     render() {
-        const { friend, messages } = this.props.chat;
+        const messages = this.props.messages;
+        const { name } = this.props.chat;
 
         let showMessages;
         if(messages) {
             showMessages = messages.map((message, index) => {
                 let type;
-                if(message.userId == this.props.user.id) {
+                if(message.sender_id == this.props.user.id) {
                     type = "myMessage"
                 } else {
                     type = "friendMessage"
                 };
                 return (
-                    <li key={index} className={classnames("list-group-item",type)}>{message.text}</li>
+                    <li key={index} className={classnames("list-group-item",type)}>{message.content}</li>
                 )
             });
         }
@@ -84,11 +84,11 @@ class ChatPanel extends React.Component {
             <div className="panel panel-info">
                 <div className="panel-heading">
                     <div className="flashHeader">
-                        <h3 className="panel-title">{friend ? friend.username : 'Chat'}</h3>
+                        <h3 className="panel-title">{name ? name : 'Chat'}</h3>
                     </div>
                 </div>
                 <div className="panel-body">
-                    {!isEmpty(friend) ?
+                    {!isEmpty(name) ?
                         <div className="chatDiv">
                             <div className="messages" ref="scroll">
                                 <ul className="list-group">
@@ -101,7 +101,7 @@ class ChatPanel extends React.Component {
                                     <button type="submit">Send</button>
                                 </form>
                             </div>
-                        </div>: 'Click on friend and chat with him :)'}
+                        </div> : 'Click on friend and chat with him :)'}
                 </div>
             </div>
             </div>
@@ -112,6 +112,7 @@ class ChatPanel extends React.Component {
 function mapStateToProps (state) {
     return {
         user: state.auth.user,
+        messages: state.messages,
         chat: state.chat,
     }
 }

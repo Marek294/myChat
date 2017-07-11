@@ -11,3 +11,5 @@ export const DELETE_PENDING_FRIEND = 'DELETE_PENDING_FRIEND';
 export const ADD_FRIEND = 'ADD_FRIEND';
 export const START_CHAT = 'START_CHAT';
 export const SAVE_MESSAGE = 'SAVE_MESSAGE';
+export const SET_CHATS = 'SET_CHATS';
+export const SET_CHAT = 'SET_CHAT';

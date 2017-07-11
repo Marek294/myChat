@@ -15,6 +15,7 @@ import users from './api/users';
 import auth from './api/auth';
 import friends from './api/friends';
 import chats from './api/chats';
+import messages from './api/messages';
 
 import User from './models/user';
 
@@ -38,6 +39,7 @@ app.use('/api/auth',auth);
 app.use('/api/users',users);
 app.use('/api/friends',friends);
 app.use('/api/chats',chats);
+app.use('/api/messages',messages);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
@@ -84,12 +86,9 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('SERVER_USER_OFFLINE', user);
     });
 
-    socket.on('SEND_MESSAGE', (message, toWho) => {
+    socket.on('SEND_MESSAGE', (message) => {
         //console.log(message, toWho);
-        const index = findIndex(usersOnline, { username: toWho.username });
-        if(index > - 1) {
-            io.to(usersOnline[index].socketId).emit('SERVER_SEND_MESSAGE', message);
-        }
+        socket.broadcast.emit('SERVER_NEW_MESSAGE', data);
     });
 
     socket.on('disconnect', function(reason) {
