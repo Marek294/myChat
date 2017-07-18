@@ -47,7 +47,7 @@ app.get('/*', (req, res) => {
 
 const port = process.env.port || 3000;
 
-server.listen(port, () => console.log('Running on port '+port));
+server.listen(port, () => console.log('Running on port: '+port));
 
 // Setup socket
 var io = socket(server, {
@@ -87,9 +87,23 @@ io.on('connection', function(socket) {
     });
 
     socket.on('SEND_MESSAGE', (message) => {
-        //console.log(message, toWho);
-        socket.broadcast.emit('SERVER_NEW_MESSAGE', data);
+        //console.log(message);
+        socket.broadcast.emit(`SERVER_NEW_MESSAGE:${message.chat_id}`, message);
+        //:${message.chat_id}
     });
+
+    socket.on('START_TYPING', (username, chat_id) => {
+        //console.log(message);
+        socket.broadcast.emit(`SERVER_START_TYPING:${chat_id}`, username);
+        //:${message.chat_id}
+    });
+
+    socket.on('STOP_TYPING', (username, chat_id) => {
+        //console.log(message);
+        socket.broadcast.emit(`SERVER_STOP_TYPING:${chat_id}`, username);
+        //:${message.chat_id}
+    });
+
 
     socket.on('disconnect', function(reason) {
         console.log('disconnect', socket.id);
