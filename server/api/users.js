@@ -7,6 +7,7 @@ import authenticate from '../middlewares/authenticate';
 
 import User from '../models/user';
 
+
 let router = express.Router();
 
 router.get('/:userId', (req, res) => {

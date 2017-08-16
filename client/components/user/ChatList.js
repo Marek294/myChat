@@ -106,13 +106,13 @@ class ChatList extends React.Component {
                 let styleText;
                 style = 'green';
                 styleText = 'green-text';
-                // if(friend.is_online ) {
-                //     style = 'green';
-                //     styleText = 'green-text';
-                // } else {
-                //     style = 'grey';
-                //     styleText = 'grey-text';
-                // }
+                if(chat.online) {
+                    style = 'green';
+                    styleText = 'green-text';
+                } else {
+                    style = 'grey';
+                    styleText = 'grey-text';
+                }
                 console.log(isAnyoneElseOnline(chat.members, this.props.currentUser));
 
                 return (

@@ -15,36 +15,38 @@ router.get('/all', authenticate, (req,res) => {
         qb.where('members', '@>', member);
     }).fetchAll().then(chats => {
         if(chats) {
-            chats.map(chat => {
-                let p1 = User.query('whereIn', 'id', chat.get('members')).fetchAll().then(users => {
-                    for(let i = 0; i < users.length; i++) {
-                        let convertedUsers = users.toJSON();
-                        if(convertedUsers[i].id != req.currentUser.id && convertedUsers[i].is_online) {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-
+            let p2 = chats.map(chat => {
                 const index = chat.get('name').indexOf(req.currentUser.get('username'));
                 if(index > -1) {
                     let displayName = chat.get('name');
                     index > 0   ? displayName = displayName.substr(0,index-1) + displayName.substr(index+req.currentUser.get('username').length,displayName.length)
                                 : displayName = displayName.substr(req.currentUser.get('username').length+1,displayName.length);
 
-                    let p2 = Promise.resolve(displayName);
                     chat.set('name', displayName);
 
-                    Promise.all([p1,p2]).then(values => {
-                        console.log(values);
-                        chat.set('is_online', values[0]);
-                        chat.set('name', values[1]);
+                    let p = chat.get('members').map(userId => {
+                        return User.query({
+                            where: { id: userId }
+                        }).fetch();
                     });
+
+                    chat.set('online', false);
+                    return Promise.all(p).then(users => {
+                        for(let i = 0; i < users.length; i++) {
+                            if((users[i].get('id') != req.currentUser.get('id')) && users[i].get('is_online')) {
+                                chat.set('online', true);
+                                break;
+                            }
+                        }
+                    })
+
                 }
 
             });
 
-            res.json(chats);
+            Promise.all(p2).then(() => {
+                res.json(chats)
+            });
         }
     })
 });
