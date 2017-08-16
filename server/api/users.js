@@ -9,6 +9,16 @@ import User from '../models/user';
 
 let router = express.Router();
 
+router.get('/:userId', (req, res) => {
+    User.query({
+        where: { id: req.params.userId }
+    }).fetch().then(user => {
+        if(user) res.json(user);
+        else res.status(403).json({ errors: 'There is no user with such id'});
+    })
+
+});
+
 router.post('/', (req, res) => {
     let { errors, isValid } = signupValidation(req.body);
     if(isValid) {

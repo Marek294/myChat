@@ -113,6 +113,7 @@ class ChatList extends React.Component {
                 //     style = 'grey';
                 //     styleText = 'grey-text';
                 // }
+                console.log(isAnyoneElseOnline(chat.members, this.props.currentUser));
 
                 return (
                     <button key={index} onClick={() => this.startChat(chat)}>
@@ -142,10 +143,20 @@ class ChatList extends React.Component {
     }
 }
 
+function isAnyoneElseOnline(membersId, currentUser) {
+    for(let i = 0; i < membersId.length; i++) {
+        if(membersId[i] != currentUser.id) {
+
+        }
+    }
+    return false;
+}
+
 function mapStateToProps (state) {
     return {
         chats: state.chats,
         isFetching: state.fetch.isFetching,
+        currentUser: state.auth.user,
     }
 }
 
