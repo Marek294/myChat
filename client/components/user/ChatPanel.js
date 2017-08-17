@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Loader } from 'react-loaders';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import socket from '../../socket';
 import isEmpty from 'lodash/isEmpty';
+import ReactChatView from 'react-chatview';
 
-import { saveMessage, pushMessage } from '../../actions/chatActions';
+import { saveMessage, pushMessage, getMoreMessages } from '../../actions/chatActions';
 
+require("!style-loader!css-loader!sass-loader!../../sass/loader.scss");
 require("!style-loader!css-loader!sass-loader!../../sass/_ChatPanel.scss");
 
 class ChatPanel extends React.Component {
@@ -15,27 +18,11 @@ class ChatPanel extends React.Component {
 
         this.state = {
             message: '',
+            page: 1,
         };
 
         this.onChange = this.onChange.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
-    }
-
-    componentDidMount() {
-        //socket.removeAllListeners('SERVER_NEW_POST:'+this.props.chat.id);
-
-        // socket.on('SERVER_SEND_MESSAGE', (message) => {
-        //     if(this.props.chat.friend) {
-        //         if (this.props.chat.friend.id == message.userId) {
-        //             this.props.saveMessage(message);
-        //         }
-        //     }
-        // });
-
-        // socket.on('SERVER_NEW_MESSAGE:'+nextProps.chat.id, (message) => {
-        //     console.log(data);
-        //     this.props.saveMessage(message);
-        // });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -69,7 +56,7 @@ class ChatPanel extends React.Component {
 
     componentDidUpdate(){
         const scroll = findDOMNode(this.refs.scroll);
-        scroll.scrollTop = scroll.scrollHeight;
+        if(scroll) scroll.scrollTop = scroll.scrollHeight;
     }
 
     onChange(e) {
@@ -107,6 +94,14 @@ class ChatPanel extends React.Component {
         }
     }
 
+    loadItems() {
+        return new Promise((resolve, reject) => {
+            this.props.getMoreMessages(this.props.chat, 2);
+            resolve();
+        });
+
+    }
+
     render() {
         const messages = this.props.messages;
         const { name } = this.props.chat;
@@ -115,13 +110,15 @@ class ChatPanel extends React.Component {
         if(messages) {
             showMessages = messages.map((message, index) => {
                 let type;
-                if(message.sender_id == this.props.user.id) {
-                    type = "myMessage"
-                } else {
-                    type = "friendMessage"
-                };
+                if(this.props.user) {
+                    if (message.sender_id === this.props.user.id) {
+                        type = "myMessage"
+                    } else {
+                        type = "friendMessage"
+                    }
+                }
                 return (
-                    <li key={index} className={classnames("list-group-item",type)}>{message.content}</li>
+                    <div key={index} className={classnames("list-group-item",type)}>{message.content}</div>
                 )
             });
         }
@@ -136,7 +133,6 @@ class ChatPanel extends React.Component {
                 } else return null;
             })
         }
-
         return (
             <div className="sass-ChatPanel">
             <div className="panel panel-info">
@@ -147,12 +143,18 @@ class ChatPanel extends React.Component {
                 </div>
                 <div className="panel-body">
                     {!isEmpty(name) ?
+                        this.props.isChatFetching ? <div className="parent" ><Loader type="ball-pulse" active /></div> :
+
                         <div className="chatDiv">
-                            <div className="messages" ref="scroll">
-                                <ul className="list-group">
+                            <ReactChatView
+                                className="messages"
+                                flipped={true}
+                                scrollLoadThreshold={50}
+                                onInfiniteLoad={this.loadItems.bind(this)}>
                                     {showMessages}
-                                </ul>
-                            </div>
+                            </ReactChatView>
+
+
                             <div className="typePanel">
                                 <div className="typeMessage">
                                     <form onSubmit={this.sendMessage}>
@@ -178,6 +180,7 @@ function mapStateToProps (state) {
     return {
         user: state.auth.user,
         messages: state.messages,
+        isChatFetching: state.fetch.isChatFetching,
         chat: state.chat,
     }
 }
@@ -186,6 +189,7 @@ function mapDispatchToProps (dispatch) {
     return {
         saveMessage: (message) => dispatch(saveMessage(message)),
         pushMessage: (message) => dispatch(pushMessage(message)),
+        getMoreMessages: (chat, page) => dispatch(getMoreMessages(chat, page)),
     }
 }
 

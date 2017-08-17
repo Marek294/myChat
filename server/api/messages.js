@@ -23,10 +23,10 @@ router.post('/', authenticate, (req,res) => {
     });
 });
 
-router.get('/:chatId', authenticate, (req,res) => {
+router.get('/:chatId/:page', authenticate, (req,res) => {
     const p1 = Message.query({
                     where: { chat_id: req.params.chatId }
-                }).fetchAll();
+                }).orderBy('id', 'DESC').fetchPage({page: req.params.page, pageSize: 15});
 
     const p2 = Chat.query({
                     where: { id: req.params.chatId }

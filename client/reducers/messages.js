@@ -1,4 +1,4 @@
-import { START_CHAT, SAVE_MESSAGE} from '../actions/types';
+import { START_CHAT, SAVE_MESSAGE, SET_MORE_MESSAGES} from '../actions/types';
 
 export default ( state = [ ], action = {}) => {
     switch(action.type) {
@@ -9,6 +9,12 @@ export default ( state = [ ], action = {}) => {
                 ...state,
                 action.message
             ]
+        }
+        case SET_MORE_MESSAGES: {
+            let messages = state;
+            messages.push(action.messages);
+            console.log(messages);
+            return messages;
         }
         default: return state;
     }

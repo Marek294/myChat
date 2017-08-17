@@ -5,11 +5,10 @@ import classnames from 'classnames';
 import socket from '../../socket';
 import findIndex from 'lodash/findIndex';
 
-import { getFriends, changeFriendStatus } from '../../actions/friendActions';
-import { startChat, getChats } from '../../actions/chatActions';
+import { startChat, getChats, changeChatStatus } from '../../actions/chatActions';
 
 require("!style-loader!css-loader!sass-loader!../../sass/loader.scss");
-require("!style-loader!css-loader!sass-loader!../../sass/_FriendPanel.scss");
+require("!style-loader!css-loader!sass-loader!../../sass/_ChatList.scss");
 
 //{this.props.isFetching ? <div className="parent" ><Loader type="ball-pulse" active /></div> : friends }
 
@@ -27,71 +26,67 @@ class ChatList extends React.Component {
 
     componentWillMount() {
         this.props.getChats();
+
         socket.on('SERVER_USER_ONLINE', user => {
-            this.props.changeFriendStatus(user, true);
+            this.props.chats.map(chat => {
+                if(chat.members.indexOf(user.id) > -1) {
+                    this.props.changeChatStatus(chat, true);
+                };
+            });
         });
 
         socket.on('SERVER_USER_OFFLINE', user => {
-            this.props.changeFriendStatus(user, false);
+            this.props.chats.map(chat => {
+                if(chat.members.indexOf(user.id) > -1) {
+                    this.props.changeChatStatus(chat, false);
+                };
+            });
+        });
+
+        socket.on(`SERVER_NEW_MESSAGE`, (chatId) => {
+            if(!this.props.chat || chatId !== this.props.chat.id) {
+                this.incrementNumberOfNewMessages(chatId);
+            }
         });
     }
 
-    // componentDidMount() {
-    //     socket.on('SERVER_SEND_MESSAGE', message => {
-    //         if(this.props.chat.friend) {
-    //             if (this.props.chat.friend.id != message.userId) {
-    //                 let messages = this.state.newMessages;
-    //                 const index = findIndex(this.state.newMessages, {userId: message.userId});
-    //
-    //                 if (index > -1) {
-    //                     messages[index].number++;
-    //
-    //                     this.setState({
-    //                         newMessages: messages
-    //                     });
-    //                 } else {
-    //                     messages.push({
-    //                         userId: message.userId,
-    //                         number: 1,
-    //                     });
-    //
-    //                     this.setState({
-    //                         newMessages: messages
-    //                     });
-    //                 }
-    //             }
-    //         } else {
-    //             let messages = this.state.newMessages;
-    //             messages.push({
-    //                 userId: message.userId,
-    //                 number: 1,
-    //             });
-    //
-    //             this.setState({
-    //                 newMessages: messages
-    //             });
-    //         }
-    //     });
-    // }
-
     showNewMessagesNumber(chat) {
-        return null;
-        // const index = findIndex(this.state.newMessages, { userId: friend.id });
-        // if(index > -1) return this.state.newMessages[index].number;
-        // else return null;
+        const index = findIndex(this.state.newMessages, { chatId: chat.id });
+        if(index > -1) return this.state.newMessages[index].number;
+        else return null;
+    }
+
+    incrementNumberOfNewMessages(chatId) {
+        const index = findIndex(this.state.newMessages, { chatId: chatId });
+        if(index > -1) {
+            let newMessages = this.state.newMessages;
+            newMessages[index].number++;
+            this.setState({
+                newMessages: newMessages
+            })
+        } else {
+            let newMessages = this.state.newMessages;
+            newMessages.push({
+                chatId: chatId,
+                number: 1
+            });
+            this.setState({
+                newMessages: newMessages
+            })
+        }
     }
 
     startChat(chat) {
         this.props.startChat(chat);
 
-        // const index = findIndex(this.state.newMessages, { userId: friend.id });
-        // if(index > -1) {
-        //     let messages = this.state.newMessages;
-        //     messages.splice(index,1);
-        //     this.setState({
-        //         newMessages: messages
-        //     });
-        // }
+        const index = findIndex(this.state.newMessages, { chatId: chat.id });
+        if(index > -1) {
+            let newMessages = this.state.newMessages;
+            newMessages.splice(index,1);
+            this.setState({
+                newMessages: newMessages
+            });
+        }
     }
 
     render() {
@@ -113,7 +108,6 @@ class ChatList extends React.Component {
                     style = 'grey';
                     styleText = 'grey-text';
                 }
-                console.log(isAnyoneElseOnline(chat.members, this.props.currentUser));
 
                 return (
                     <button key={index} onClick={() => this.startChat(chat)}>
@@ -132,7 +126,7 @@ class ChatList extends React.Component {
             <div className="panel panel-info">
                 <div className="panel-heading">
                     <div className="flashHeader">
-                        <h3 className="panel-title">Friends</h3>
+                        <h3 className="panel-title">Chats</h3>
                     </div>
                 </div>
                 {this.props.isFetching ? <div className="parent" ><Loader type="ball-pulse" active /></div> :
@@ -143,29 +137,20 @@ class ChatList extends React.Component {
     }
 }
 
-function isAnyoneElseOnline(membersId, currentUser) {
-    for(let i = 0; i < membersId.length; i++) {
-        if(membersId[i] != currentUser.id) {
-
-        }
-    }
-    return false;
-}
-
 function mapStateToProps (state) {
     return {
         chats: state.chats,
         isFetching: state.fetch.isFetching,
         currentUser: state.auth.user,
+        chat: state.chat,
     }
 }
 
 function mapDispatchToProps (dispatch) {
     return {
-        getFriends: () => dispatch(getFriends()),
         getChats: () => dispatch(getChats()),
-        changeFriendStatus: (user, isOnline) => dispatch(changeFriendStatus(user, isOnline)),
-        startChat: (friend) => dispatch(startChat(friend)),
+        startChat: (chat) => dispatch(startChat(chat)),
+        changeChatStatus: (chat, online) => dispatch(changeChatStatus(chat,online)),
     }
 }
 

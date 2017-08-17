@@ -3,9 +3,8 @@
     height: 300px;
     border: 1px solid #00ABF9;
     border-radius: 10px;
-    overflow: scroll;
-    overflow-x: hidden;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
   }
 
   .typePanel {
@@ -43,7 +42,7 @@
     border-radius: 5px;
   }
 
-  ul {
+  .messages div {
     display: flex;
     flex-direction: column;
     list-style-type: none;

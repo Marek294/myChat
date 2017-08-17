@@ -63,7 +63,7 @@ io.on('connection', function(socket) {
         //console.log(user);
         if(user) {
             const index = findIndex(usersOnline, {username: user.username});
-            if (index == -1) {
+            if (index < 0) {
                 let userInformation = user;
                 userInformation.socketId = socket.id;
                 usersOnline.push(userInformation);
@@ -89,6 +89,7 @@ io.on('connection', function(socket) {
     socket.on('SEND_MESSAGE', (message) => {
         //console.log(message);
         socket.broadcast.emit(`SERVER_NEW_MESSAGE:${message.chat_id}`, message);
+        socket.broadcast.emit('SERVER_NEW_MESSAGE',message.chat_id);
         //:${message.chat_id}
     });
 

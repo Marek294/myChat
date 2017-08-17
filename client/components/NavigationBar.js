@@ -5,6 +5,7 @@ import socket from '../socket';
 
 import { logout } from '../actions/userActions';
 import { addFlashMessage } from '../actions/flashActions';
+import { clearChat } from '../actions/chatActions';
 
 require("!style-loader!css-loader!sass-loader!../sass/_NavigationBar.scss");
 
@@ -18,6 +19,7 @@ class NavigationBar extends React.Component {
     logout() {
         socket.emit('USER_OFFLINE', this.props.user);
         this.props.logout();
+        this.props.clearChat();
         this.props.addFlashMessage({
             type: 'success',
             text: 'You have log out successfully!'
@@ -71,6 +73,7 @@ function mapDispatchToProps (dispatch) {
     return {
         logout: () => dispatch(logout()),
         addFlashMessage: (message) => dispatch(addFlashMessage(message)),
+        clearChat: () => dispatch(clearChat()),
     }
 }
 

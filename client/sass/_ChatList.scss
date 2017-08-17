@@ -18,6 +18,10 @@
     width: 100%;
   }
 
+  .list-group button:hover .list-group-item {
+    background-color: #ededed;
+  }
+
   .circle {
     border-radius: 50%;
     width: 10px;
