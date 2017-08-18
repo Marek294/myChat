@@ -101,7 +101,6 @@ class ChatPanel extends React.Component {
 
     loadItems() {
         return new Promise((resolve, reject) => {
-            console.log(this.props.chat);
             this.props.getMoreMessages(this.props.chat);
             resolve();
         });
