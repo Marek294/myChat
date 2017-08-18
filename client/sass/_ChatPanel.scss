@@ -27,6 +27,15 @@
     align-self: flex-start;
   }
 
+  ul {
+    list-style-type: none;
+    margin-right: 50px;
+  }
+
+  .typing {
+    color: darkgrey;
+  }
+
   input {
     min-width: 200px;
     border: 1px solid #00ABF9;

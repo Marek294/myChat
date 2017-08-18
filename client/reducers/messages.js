@@ -6,15 +6,17 @@ export default ( state = [ ], action = {}) => {
             return action.messages;
         case SAVE_MESSAGE: {
             return [
-                ...state,
-                action.message
+                action.message,
+                ...state
             ]
         }
         case SET_MORE_MESSAGES: {
-            let messages = state;
-            messages.push(action.messages);
-            console.log(messages);
-            return messages;
+            // let messages = state;
+            // messages.push(action.messages);
+            // console.log(action.messages);
+            return [
+                ...state.concat(action.messages)
+            ];
         }
         default: return state;
     }

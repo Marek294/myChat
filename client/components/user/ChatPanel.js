@@ -18,7 +18,7 @@ class ChatPanel extends React.Component {
 
         this.state = {
             message: '',
-            page: 1,
+            shouldLoad: true,
         };
 
         this.onChange = this.onChange.bind(this);
@@ -26,9 +26,14 @@ class ChatPanel extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        socket.emit('STOP_TYPING', this.props.user.username, this.props.chat.id);
         socket.removeAllListeners('SERVER_NEW_MESSAGE:'+this.props.chat.id);
         socket.removeAllListeners('SERVER_START_TYPING:'+this.props.chat.id);
         socket.removeAllListeners('SERVER_STOP_TYPING:'+this.props.chat.id);
+
+        this.setState({
+            typingUser: {}
+        });
 
         socket.on(`SERVER_NEW_MESSAGE:${nextProps.chat.id}`, (message) => {
             //console.log(message);
@@ -52,11 +57,6 @@ class ChatPanel extends React.Component {
                 }
             })
         });
-    }
-
-    componentDidUpdate(){
-        const scroll = findDOMNode(this.refs.scroll);
-        if(scroll) scroll.scrollTop = scroll.scrollHeight;
     }
 
     onChange(e) {
@@ -94,9 +94,15 @@ class ChatPanel extends React.Component {
         }
     }
 
+    shouldLoad() {
+        if (this.props.chat.pagination.pageCount >= this.props.chat.page) return true;
+        else return false;
+    }
+
     loadItems() {
         return new Promise((resolve, reject) => {
-            this.props.getMoreMessages(this.props.chat, 2);
+            console.log(this.props.chat);
+            this.props.getMoreMessages(this.props.chat);
             resolve();
         });
 
@@ -149,7 +155,9 @@ class ChatPanel extends React.Component {
                             <ReactChatView
                                 className="messages"
                                 flipped={true}
-                                scrollLoadThreshold={50}
+                                reversed={false}
+                                scrollLoadThreshold={0}
+                                shouldTriggerLoad={this.shouldLoad.bind(this)}
                                 onInfiniteLoad={this.loadItems.bind(this)}>
                                     {showMessages}
                             </ReactChatView>
@@ -189,7 +197,7 @@ function mapDispatchToProps (dispatch) {
     return {
         saveMessage: (message) => dispatch(saveMessage(message)),
         pushMessage: (message) => dispatch(pushMessage(message)),
-        getMoreMessages: (chat, page) => dispatch(getMoreMessages(chat, page)),
+        getMoreMessages: (chat) => dispatch(getMoreMessages(chat)),
     }
 }
 

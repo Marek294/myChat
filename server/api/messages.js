@@ -35,7 +35,10 @@ router.get('/:chatId/:page', authenticate, (req,res) => {
     Promise.all([p1,p2]).then(values => {
         if(values[1]) {
             if(values[1].get('members').indexOf(req.currentUser.id) > -1) {
-                res.json(values[0]);
+                res.json({
+                    messages: values[0],
+                    pagination: values[0].pagination
+                });
             } else res.status(403).json({errors: 'You have no access to this chat'});
         } else res.status(403).json({errors: 'There is no chat with such id'});
     });

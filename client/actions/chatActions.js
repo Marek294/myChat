@@ -73,8 +73,10 @@ export function startChat(chat) {
     return dispatch => {
         dispatch(startChatFetch());
         return axios.get(`/api/messages/${chat.id}/1`).then(res => {
+            chat.page = 2;
+            chat.pagination = res.data.pagination;
             dispatch(setChat(chat));
-            dispatch(setMessages(res.data));
+            dispatch(setMessages(res.data.messages));
             dispatch(stopChatFetch());
         }, err => {
             dispatch(addFlashMessage({
@@ -86,10 +88,12 @@ export function startChat(chat) {
     }
 }
 
-export function getMoreMessages(chat, page) {
+export function getMoreMessages(chat) {
     return dispatch => {
-        return axios.get(`/api/messages/${chat.id}/${page}`).then(res => {
-            dispatch(setMoreMessages(res.data));
+        return axios.get(`/api/messages/${chat.id}/${chat.page}`).then(res => {
+            chat.page++;
+            dispatch(setChat(chat));
+            dispatch(setMoreMessages(res.data.messages));
         }, err => {
             dispatch(addFlashMessage({
                 type: 'error',
