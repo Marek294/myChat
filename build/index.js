@@ -99,7 +99,7 @@ app.get('/*', function (req, res) {
 app.set('port', process.env.PORT || 3000);
 
 server.listen(app.get('port'), function () {
-    return console.log('Running on port: ' + port);
+    return console.log('Running on port: ' + app.get('port'));
 });
 
 // Setup socket

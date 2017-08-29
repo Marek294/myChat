@@ -54,7 +54,7 @@ app.get('/*', (req, res) => {
 
 app.set('port', (process.env.PORT || 3000));
 
-server.listen(app.get('port'), () => console.log('Running on port: '+port));
+server.listen(app.get('port'), () => console.log('Running on port: '+ app.get('port')));
 
 // Setup socket
 var io = socket(server, {
