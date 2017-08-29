@@ -12,9 +12,9 @@ var _config = require('../config');
 
 var _config2 = _interopRequireDefault(_config);
 
-var _User = require('../models/User');
+var _user = require('../models/user');
 
-var _User2 = _interopRequireDefault(_User);
+var _user2 = _interopRequireDefault(_user);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29,7 +29,7 @@ exports.default = function (req, res, next) {
             if (err) {
                 res.status(401).json({ error: 'Failed to authenticate' });
             } else {
-                _User2.default.query({
+                _user2.default.query({
                     select: ['id', 'username', 'email'],
                     where: { id: decoded.id }
                 }).fetch().then(function (user) {

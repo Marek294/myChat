@@ -2,12 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e62ddc59-bd1a-45bc-8b00-3f99cb6421b7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpack.config.prod.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/index.js" afterPath="$PROJECT_DIR$/server/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpack.config.dev.js" afterPath="$PROJECT_DIR$/webpack.config.dev.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/auth.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/auth.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/chats.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/chats.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/friends.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/friends.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/messages.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/messages.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/users.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/api/users.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/bookshelf.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/bookshelf.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/config.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/index.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/middlewares/authenticate.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/middlewares/authenticate.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/models/chat.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/models/chat.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/models/friend.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/models/friend.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/models/message.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/models/message.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/models/user.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/models/user.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/validations/signup.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/validations/signup.js.map" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/middlewares/authenticate.js" afterPath="$PROJECT_DIR$/server/middlewares/authenticate.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -70,7 +93,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webpack.config.dev.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="webpack.config.dev.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webpack.config.dev.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
@@ -92,10 +115,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="authenticate.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/middlewares/authenticate.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="29" lean-forward="false" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
+            <state relative-caret-position="578">
               <caret line="34" column="27" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
               <folding />
             </state>
@@ -120,16 +153,6 @@
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_ChatPanel.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/sass/_ChatPanel.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="19" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -159,7 +182,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/sass/_FlashMessage.scss" />
         <option value="$PROJECT_DIR$/client/components/user/UserGreetings.js" />
         <option value="$PROJECT_DIR$/client/sass/_FriendsList.scss" />
         <option value="$PROJECT_DIR$/client/components/App.js" />
@@ -210,6 +232,7 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/server/index.js" />
         <option value="$PROJECT_DIR$/webpack.config.dev.js" />
+        <option value="$PROJECT_DIR$/server/middlewares/authenticate.js" />
       </list>
     </option>
   </component>
@@ -263,6 +286,17 @@
             <path>
               <item name="myChat" type="b2602c69:ProjectViewProjectNode" />
               <item name="myChat" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myChat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myChat" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myChat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myChat" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="middlewares" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -400,12 +434,12 @@
       <workItem from="1503057796091" duration="10000" />
       <workItem from="1503062005316" duration="2458000" />
       <workItem from="1503080098566" duration="5000" />
-      <workItem from="1504013934831" duration="924000" />
+      <workItem from="1504013934831" duration="1192000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="181743000" />
+    <option name="totallyTimeSpent" value="182011000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -452,13 +486,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/models/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="2" lean-forward="true" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/sass/_FriendsRequests.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -776,14 +803,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.prod.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="14" lean-forward="false" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -794,14 +813,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="34" column="27" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webpack.config.dev.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -809,6 +820,30 @@
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="27" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.prod.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="14" lean-forward="false" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/middlewares/authenticate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="29" lean-forward="false" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
