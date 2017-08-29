@@ -96,9 +96,9 @@ app.get('/*', function (req, res) {
     res.sendFile(_path2.default.join(__dirname, '../public/index.html'));
 });
 
-var port = process.env.port || 3000;
+app.set('port', process.env.PORT || 3000);
 
-server.listen(port, function () {
+server.listen(app.get('port'), function () {
     return console.log('Running on port: ' + port);
 });
 
