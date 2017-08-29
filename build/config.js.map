@@ -1,0 +1,1 @@
+{"version":3,"sources":["../server/config.js"],"names":["jwtSecret"],"mappings":";;;;;kBAAe;AACXA,eAAW;AADA,C","file":"config.js","sourcesContent":["export default {\r\n    jwtSecret: 'jsonwebtokensecretstring'\r\n};"]}

@@ -1,5 +1,5 @@
-import path from 'path';
-import webpack from 'webpack';
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: [
@@ -7,7 +7,7 @@ module.exports = {
         path.join(__dirname, './client/index.js')
     ],
     output: {
-        path: __dirname,
+        path: path.join(__dirname, '/public'),
         filename: 'bundle.js',
         publicPath: '/'
     },

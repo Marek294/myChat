@@ -1,0 +1,1 @@
+{"version":3,"sources":["../server/bookshelf.js"],"names":["development"],"mappings":";;;;;;AAAA;;;;AACA;;;;AACA;;;;;;kBAEe,yBAAU,oBAAK,mBAAWA,WAAhB,CAAV,C","file":"bookshelf.js","sourcesContent":["import knex from 'knex';\r\nimport bookshelf from 'bookshelf';\r\nimport knexConfig from '../knexfile';\r\n\r\nexport default bookshelf(knex(knexConfig.development));"]}

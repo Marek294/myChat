@@ -1,15 +1,10 @@
 import express from 'express';
 import path from 'path';
-import webpack from 'webpack';
-import webpackMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
 import bodyParser from 'body-parser';
 import socket from 'socket.io';
 import http from 'http';
 import morgan from 'morgan';
 import findIndex from 'lodash/findIndex';
-
-import webpackConfig from '../webpack.config.dev';
 
 import users from './api/users';
 import auth from './api/auth';
@@ -22,14 +17,26 @@ import User from './models/user';
 let app = express();
 let server = http.Server(app);
 
-const compiler = webpack(webpackConfig);
+let webpack;
+let webpackMiddleware;
+let webpackHotMiddleware;
+let webpackConfig;
 
-app.use(webpackMiddleware(compiler, {
-    hot: true,
-    publicPath: webpackConfig.output.publicPath,
-    noInfo: true
-}));
-app.use(webpackHotMiddleware(compiler));
+if(process.env.NODE_ENV.trim() === 'development') {
+    webpack = require('webpack');
+    webpackMiddleware = require('webpack-dev-middleware');
+    webpackHotMiddleware = require('webpack-hot-middleware');
+
+    webpackConfig = require('../webpack.config.dev');
+    const compiler = webpack(webpackConfig);
+
+    app.use(webpackMiddleware(compiler));
+    app.use(webpackHotMiddleware(compiler, {
+        hot: true,
+        publicPath: webpackConfig.output.publicPath,
+        noInfo: true
+    }));
+}
 
 app.use(express.static('public'));
 app.use(bodyParser());
